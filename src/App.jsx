@@ -16,25 +16,14 @@ const handleOperation = (displayContent, setAns) => {
   const opIndex = displayContent.indexOf(operation);
   const beforeOperation = parseInt(displayContent.substring(0, opIndex + 1));
   const afterOperation = parseInt(
-    displayContent.substring(opIndex, displayContent.length)
+    displayContent.substring(opIndex + 1, displayContent.length)
   );
 
-  /* !problema con afterOperation (NaN) */
-  console.log("before y after:", beforeOperation, afterOperation);
-
   let result;
-  switch (operation) {
-    case "+":
-      result = beforeOperation + afterOperation;
-    case "-":
-      result = beforeOperation - afterOperation;
-    case "*":
-      result = beforeOperation * afterOperation;
-    case "/":
-      result = beforeOperation / afterOperation;
-    default:
-      result = beforeOperation + afterOperation;
-  }
+  if (operation === "+") result = beforeOperation + afterOperation;
+  else if (operation === "-") result = beforeOperation - afterOperation;
+  else if (operation === "*") result = beforeOperation * afterOperation;
+  else if (operation === "/") result = beforeOperation / afterOperation;
   setAns(result);
   return result;
 };
@@ -65,6 +54,15 @@ const App = () => {
       </Button>
 
       <Button
+        type="number"
+        action={() => {
+          setDisplayContent(displayContent + "3");
+        }}
+      >
+        3
+      </Button>
+
+      <Button
         type="operation"
         action={() => {
           setDisplayContent(displayContent + "+");
@@ -80,6 +78,24 @@ const App = () => {
         }}
       >
         -
+      </Button>
+
+      <Button
+        type="operation"
+        action={() => {
+          setDisplayContent(displayContent + "*");
+        }}
+      >
+        *
+      </Button>
+
+      <Button
+        type="operation"
+        action={() => {
+          setDisplayContent(displayContent + "/");
+        }}
+      >
+        /
       </Button>
 
       <Button
