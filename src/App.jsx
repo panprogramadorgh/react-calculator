@@ -6,31 +6,61 @@ import Display from "./components/Display";
 /*  */
 import "./App.css";
 
-const handleOperation = (displayContent, setAns) => {
-  let operation;
-  for (let i = 0; i < displayContent.length; i++) {
-    if (["+", "-", "*", "/"].includes(displayContent[i])) {
-      operation = displayContent[i];
-    }
-  }
-  const opIndex = displayContent.indexOf(operation);
-  const beforeOperation = parseInt(displayContent.substring(0, opIndex + 1));
-  const afterOperation = parseInt(
-    displayContent.substring(opIndex + 1, displayContent.length)
-  );
+const handleStateReset = ({
+  // setFirstNumber,
+  setSeccondNumber,
+  setOperation,
+  setCurrentNumber,
+}) => {
+  // setFirstNumber("");
+  setSeccondNumber("");
+  setOperation("");
+  setCurrentNumber("number1");
+};
 
-  let result;
-  if (operation === "+") result = beforeOperation + afterOperation;
-  else if (operation === "-") result = beforeOperation - afterOperation;
-  else if (operation === "*") result = beforeOperation * afterOperation;
-  else if (operation === "/") result = beforeOperation / afterOperation;
-  setAns(result);
-  return result;
+const handleEqualButton = ({
+  firstNumber,
+  seccondNumber,
+  operation,
+  setAns,
+}) => {
+  /* problem solving with calculator user input */
+
+  if (!firstNumber || !seccondNumber || !operation) return null;
+  else {
+    let result;
+    switch (operation) {
+      case "+":
+        result = Number(firstNumber) + Number(seccondNumber);
+        break;
+      case "-":
+        result = Number(firstNumber) - Number(seccondNumber);
+        break;
+      case "*":
+        result = Number(firstNumber) * Number(seccondNumber);
+        break;
+      case "/":
+        result = Number(firstNumber) / Number(seccondNumber);
+        break;
+    }
+    setAns(result.toString());
+  }
 };
 
 const App = () => {
   const [displayContent, setDisplayContent] = useState("");
-  const [ans, setAns] = useState(0);
+  const [firstNumber, setFirstNumber] = useState("");
+  const [seccondNumber, setSeccondNumber] = useState("");
+  const [operation, setOperation] = useState("");
+  const [currentNumber, setCurrentNumber] = useState("number1");
+  const [ans, setAns] = useState(null);
+
+  useEffect(() => {
+    if (ans !== null) {
+      setDisplayContent(ans);
+      setFirstNumber(ans);
+    }
+  }, [ans]);
 
   return (
     <Fragment>
@@ -38,7 +68,14 @@ const App = () => {
       <Button
         type="number"
         action={() => {
-          setDisplayContent(displayContent + "1");
+          displayContent === null
+            ? setDisplayContent("1")
+            : setDisplayContent(displayContent + "1");
+          if (currentNumber === "number1") {
+            setFirstNumber(firstNumber + "1");
+          } else if (currentNumber === "number2") {
+            setSeccondNumber(seccondNumber + "1");
+          }
         }}
       >
         1
@@ -47,25 +84,27 @@ const App = () => {
       <Button
         type="number"
         action={() => {
-          setDisplayContent(displayContent + "2");
+          displayContent === null
+            ? setDisplayContent("2")
+            : setDisplayContent(displayContent + "2");
+          if (currentNumber === "number1") {
+            setFirstNumber(firstNumber + "2");
+          } else if (currentNumber === "number2") {
+            setSeccondNumber(seccondNumber + "2");
+          }
         }}
       >
         2
       </Button>
 
       <Button
-        type="number"
-        action={() => {
-          setDisplayContent(displayContent + "3");
-        }}
-      >
-        3
-      </Button>
-
-      <Button
         type="operation"
         action={() => {
-          setDisplayContent(displayContent + "+");
+          displayContent === null
+            ? setDisplayContent("+")
+            : setDisplayContent(displayContent + "+");
+          if (firstNumber) setOperation("+");
+          setCurrentNumber(`number${!firstNumber ? 1 : 2}`);
         }}
       >
         +
@@ -74,35 +113,33 @@ const App = () => {
       <Button
         type="operation"
         action={() => {
-          setDisplayContent(displayContent + "-");
+          displayContent === null
+            ? setDisplayContent("-")
+            : setDisplayContent(displayContent + "-");
+          if (firstNumber) setOperation("-");
+          setCurrentNumber(`number${!firstNumber ? 1 : 2}`);
         }}
       >
         -
       </Button>
 
       <Button
-        type="operation"
-        action={() => {
-          setDisplayContent(displayContent + "*");
-        }}
-      >
-        *
-      </Button>
-
-      <Button
-        type="operation"
-        action={() => {
-          setDisplayContent(displayContent + "/");
-        }}
-      >
-        /
-      </Button>
-
-      <Button
         type="special"
         action={() => {
-          const result = handleOperation(displayContent, setAns);
-          setDisplayContent(result);
+          const handleFunctionObjParameter = {
+            firstNumber,
+            seccondNumber,
+            operation,
+            setAns,
+            setFirstNumber,
+            setSeccondNumber,
+            setOperation,
+            setCurrentNumber,
+          };
+          /* calcualtes the result */
+          handleEqualButton(handleFunctionObjParameter);
+          /* ressets calculator states */
+          handleStateReset(handleFunctionObjParameter);
         }}
       >
         =
