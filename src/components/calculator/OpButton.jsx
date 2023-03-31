@@ -12,6 +12,7 @@ const OpButton = ({ children }) => {
     setSeccondNumber,
     setCurrentNumber,
     setAns,
+    dynamicResult,
   } = useContext(ButtonContext);
 
   return (
@@ -22,31 +23,11 @@ const OpButton = ({ children }) => {
           if (!operation) {
             setOperation(children);
             setCurrentNumber("number2");
+          } else if (operation && !seccondNumber && children === "-") {
+            setSeccondNumber(children);
           } else if (seccondNumber) {
-            let result;
-            switch (operation) {
-              case "+":
-                result = (
-                  Number(firstNumber) + Number(seccondNumber)
-                ).toString();
-                break;
-              case "-":
-                result = (
-                  Number(firstNumber) - Number(seccondNumber)
-                ).toString();
-                break;
-              case "*":
-                result = (
-                  Number(firstNumber) * Number(seccondNumber)
-                ).toString();
-                break;
-              case "/":
-                result = (
-                  Number(firstNumber) / Number(seccondNumber)
-                ).toString();
-                break;
-            }
-            if (!result) return
+            const result = dynamicResult;
+            if (!result) return;
             setAns(result);
             setFirstNumber("");
             setSeccondNumber("");

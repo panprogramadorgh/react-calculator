@@ -13,7 +13,7 @@
   transition: all 0.1s;
 }
 
-button.Button-component:hover, button.Button-component:focus {
+button.Button-component:hover {
   background-color: #d5e009;
   color: #000;
 }

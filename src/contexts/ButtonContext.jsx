@@ -8,6 +8,7 @@ const ButtonContextProvider = ({ children }) => {
   const [operation, setOperation] = useState("");
   const [currentNumber, setCurrentNumber] = useState("number1");
   const [ans, setAns] = useState("");
+  const [dynamicResult, setDynamicResult] = useState("");
 
   const buttonStates = {
     firstNumber,
@@ -20,6 +21,8 @@ const ButtonContextProvider = ({ children }) => {
     setCurrentNumber,
     ans,
     setAns,
+    dynamicResult,
+    setDynamicResult,
   };
 
   return (

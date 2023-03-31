@@ -4,34 +4,18 @@ import Button from "../Button";
 
 const OpButton = ({ children }) => {
   const {
-    firstNumber,
     setFirstNumber,
-    seccondNumber,
     setSeccondNumber,
-    operation,
     setAns,
     setOperation,
     setCurrentNumber,
+    dynamicResult,
   } = useContext(ButtonContext);
   return (
     <Button
       type="special"
       action={() => {
-        let result;
-        switch (operation) {
-          case "+":
-            result = (Number(firstNumber) + Number(seccondNumber)).toString();
-            break;
-          case "-":
-            result = (Number(firstNumber) - Number(seccondNumber)).toString();
-            break;
-          case "*":
-            result = (Number(firstNumber) * Number(seccondNumber)).toString();
-            break;
-          case "/":
-            result = (Number(firstNumber) / Number(seccondNumber)).toString();
-            break;
-        }
+        const result = dynamicResult;
         if (!result) return;
         setAns(result);
         setFirstNumber("");

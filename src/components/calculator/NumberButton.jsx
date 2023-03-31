@@ -15,9 +15,20 @@ const NumberButton = ({ children }) => {
       type="number"
       action={() => {
         if (currentNumber === "number1") {
-          setFirstNumber(firstNumber + children);
+          if (
+            children !== "." ||
+            firstNumber.split("").filter((char) => char === children).length < 1
+          ) {
+            setFirstNumber(firstNumber + children);
+          }
         } else if (currentNumber === "number2") {
-          setSeccondNumber(seccondNumber + children)
+          if (
+            children !== "." ||
+            seccondNumber.split("").filter((char) => char === children).length <
+              1
+          ) {
+            setSeccondNumber(seccondNumber + children);
+          }
         }
       }}
     >

@@ -14,8 +14,15 @@ import "./App.css";
 
 const App = () => {
   const [displayContent, setDisplayContent] = useState("");
-  const { ans, firstNumber, setFirstNumber, seccondNumber, operation } =
-    useContext(ButtonContext);
+  const {
+    ans,
+    firstNumber,
+    setFirstNumber,
+    seccondNumber,
+    operation,
+    dynamicResult,
+    setDynamicResult,
+  } = useContext(ButtonContext);
 
   useEffect(() => {
     setDisplayContent(ans);
@@ -23,10 +30,12 @@ const App = () => {
   }, [ans]);
 
   useEffect(() => {
-    console.clear();
     setDisplayContent(`${firstNumber} ${operation} ${seccondNumber}`);
-    if (firstNumber && !seccondNumber && !operation) console.log(firstNumber);
-    else if (seccondNumber) {
+    if (firstNumber && !seccondNumber && !operation) {
+      setDynamicResult("");
+    } else if (operation && !seccondNumber) {
+      setDynamicResult(". . .");
+    } else if (seccondNumber) {
       let result;
       switch (operation) {
         case "+":
@@ -41,15 +50,18 @@ const App = () => {
         case "/":
           result = (Number(firstNumber) / Number(seccondNumber)).toString();
           break;
+        default:
+          result = ". . .";
       }
-      console.log(result);
+      if (isNaN(result)) return;
+      setDynamicResult(result);
     }
   }, [firstNumber, seccondNumber, operation]);
 
   return (
     <Fragment>
       <div className="calculator-body">
-        <Display>{displayContent}</Display>
+        <Display preview={dynamicResult}>{displayContent}</Display>
 
         <div className="button-container">
           <div className="numeric-button-container">
