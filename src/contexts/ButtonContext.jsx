@@ -7,7 +7,7 @@ const ButtonContextProvider = ({ children }) => {
   const [seccondNumber, setSeccondNumber] = useState("");
   const [operation, setOperation] = useState("");
   const [currentNumber, setCurrentNumber] = useState("number1");
-  const [ans, setAns] = useState(0);
+  const [ans, setAns] = useState("");
 
   const buttonStates = {
     firstNumber,

@@ -2,28 +2,6 @@ import { useContext } from "react";
 import { ButtonContext } from "../../contexts/ButtonContext";
 import Button from "../Button";
 
-const handleEqualButton = ({ firstNumber, seccondNumber, operation }) => {
-  if (!firstNumber || !seccondNumber || !operation) return null;
-  else {
-    let result;
-    switch (operation) {
-      case "+":
-        result = Number(firstNumber) + Number(seccondNumber);
-        break;
-      case "-":
-        result = Number(firstNumber) - Number(seccondNumber);
-        break;
-      case "*":
-        result = Number(firstNumber) * Number(seccondNumber);
-        break;
-      case "/":
-        result = Number(firstNumber) / Number(seccondNumber);
-        break;
-    }
-    return result.toString();
-  }
-};
-
 const OpButton = ({ children }) => {
   const {
     firstNumber,
@@ -37,22 +15,29 @@ const OpButton = ({ children }) => {
   } = useContext(ButtonContext);
   return (
     <Button
-      type="operation"
+      type="special"
       action={() => {
-        /* takes care of updating ans state */
-        const result = handleEqualButton({
-          firstNumber,
-          seccondNumber,
-          operation,
-        });
-        if (result !== null) {
-          setAns(result);
-          /* takes care of resetting butto states */
-          setFirstNumber("");
-          setSeccondNumber("");
-          setOperation("");
-          setCurrentNumber("number1");
+        let result;
+        switch (operation) {
+          case "+":
+            result = (Number(firstNumber) + Number(seccondNumber)).toString();
+            break;
+          case "-":
+            result = (Number(firstNumber) - Number(seccondNumber)).toString();
+            break;
+          case "*":
+            result = (Number(firstNumber) * Number(seccondNumber)).toString();
+            break;
+          case "/":
+            result = (Number(firstNumber) / Number(seccondNumber)).toString();
+            break;
         }
+        if (!result) return;
+        setAns(result);
+        setFirstNumber("");
+        setSeccondNumber("");
+        setOperation("");
+        setCurrentNumber("number1");
       }}
     >
       {children}

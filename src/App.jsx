@@ -1,10 +1,13 @@
 /* React package sutff */
 import { Fragment, useState, useEffect, useContext } from "react";
 /* exporting all componets for building the app */
-import Display from "./components/Display";
+import Display from "./components/calculator/Display";
 import NumberButton from "./components/calculator/NumberButton";
 import OpButton from "./components/calculator/OpButton";
 import EqualButton from "./components/calculator/EqualButton";
+import DelButton from "./components/calculator/DelButton";
+import ClearButton from "./components/calculator/ClearButton";
+import AnsButton from "./components/calculator/AnsButton";
 import { ButtonContext } from "./contexts/ButtonContext";
 /*  */
 import "./App.css";
@@ -20,21 +23,54 @@ const App = () => {
   }, [ans]);
 
   useEffect(() => {
-    setDisplayContent(firstNumber + operation + seccondNumber);
+    console.clear();
+    setDisplayContent(`${firstNumber} ${operation} ${seccondNumber}`);
+    if (firstNumber && !seccondNumber && !operation) console.log(firstNumber);
+    else if (seccondNumber) {
+      let result;
+      switch (operation) {
+        case "+":
+          result = (Number(firstNumber) + Number(seccondNumber)).toString();
+          break;
+        case "-":
+          result = (Number(firstNumber) - Number(seccondNumber)).toString();
+          break;
+        case "*":
+          result = (Number(firstNumber) * Number(seccondNumber)).toString();
+          break;
+        case "/":
+          result = (Number(firstNumber) / Number(seccondNumber)).toString();
+          break;
+      }
+      console.log(result);
+    }
   }, [firstNumber, seccondNumber, operation]);
 
   return (
     <Fragment>
-      <Display width="500px">{displayContent}</Display>
+      <div className="calculator-body">
+        <Display>{displayContent}</Display>
 
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((number) => {
-        return <NumberButton key={number - 1}>{number}</NumberButton>;
-      })}
-
-      <OpButton>+</OpButton>
-      <OpButton>-</OpButton>
-      <OpButton>*</OpButton>
-      <EqualButton>{"="}</EqualButton>
+        <div className="button-container">
+          <div className="numeric-button-container">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "."].map((number) => {
+              return <NumberButton key={number}>{number}</NumberButton>;
+            })}
+            <AnsButton>Ans</AnsButton>
+          </div>
+          <div className="operation-button-container">
+            <OpButton>{"+"}</OpButton>
+            <OpButton>{"-"}</OpButton>
+            <OpButton>{"*"}</OpButton>
+            <OpButton>{"/"}</OpButton>
+          </div>
+        </div>
+        <div className="special-button-container">
+          <ClearButton>Clear</ClearButton>
+          <DelButton>DEL</DelButton>
+          <EqualButton>{"="}</EqualButton>
+        </div>
+      </div>
     </Fragment>
   );
 };
