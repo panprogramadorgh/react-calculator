@@ -10,7 +10,6 @@ const ClearButton = ({ children }) => {
     setSeccondNumber,
     operation,
     setOperation,
-    setCurrentNumber,
   } = useContext(ButtonContext);
   return (
     <Button
@@ -22,7 +21,6 @@ const ClearButton = ({ children }) => {
           );
         } else if (operation) {
           setOperation("");
-          setCurrentNumber("number1");
         } else if (firstNumber) {
           setFirstNumber(firstNumber.substring(0, firstNumber.length - 1));
         }

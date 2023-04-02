@@ -14,10 +14,11 @@ body {
 
 .calculator-body {
   width: 500px;
-  background: radial-gradient(#666, #444);
+  background-color: #fff;
   padding: 50px 30px;
-  border-radius: 1em;
-  border: 0.2em solid #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button-container {
@@ -30,6 +31,7 @@ body {
 }
 
 .special-button-container {
+  width: 92%;
   display: flex;
-  padding-top: 35px;
+  padding-top: 10px;
 }

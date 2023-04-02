@@ -10,7 +10,6 @@ const OpButton = ({ children }) => {
     setFirstNumber,
     seccondNumber,
     setSeccondNumber,
-    setCurrentNumber,
     setAns,
     dynamicResult,
   } = useContext(ButtonContext);
@@ -22,17 +21,14 @@ const OpButton = ({ children }) => {
         if (firstNumber && !["+", "-", "*", "/"].includes(firstNumber)) {
           if (!operation) {
             setOperation(children);
-            setCurrentNumber("number2");
           } else if (operation && !seccondNumber && children === "-") {
             setSeccondNumber(children);
-          } else if (seccondNumber) {
+          } else if (operation && seccondNumber) {
             const result = dynamicResult;
             if (!result) return;
             setAns(result);
-            setFirstNumber("");
             setSeccondNumber("");
             setOperation(children);
-            setCurrentNumber("number2");
           }
         } else if (!firstNumber && children === "-") {
           setFirstNumber(children);

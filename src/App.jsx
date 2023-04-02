@@ -22,6 +22,7 @@ const App = () => {
     operation,
     dynamicResult,
     setDynamicResult,
+    operateStates,
   } = useContext(ButtonContext);
 
   useEffect(() => {
@@ -30,32 +31,14 @@ const App = () => {
   }, [ans]);
 
   useEffect(() => {
-    setDisplayContent(`${firstNumber} ${operation} ${seccondNumber}`);
-    if (firstNumber && !seccondNumber && !operation) {
-      setDynamicResult("");
-    } else if (operation && !seccondNumber) {
-      setDynamicResult(". . .");
-    } else if (seccondNumber) {
-      let result;
-      switch (operation) {
-        case "+":
-          result = (Number(firstNumber) + Number(seccondNumber)).toString();
-          break;
-        case "-":
-          result = (Number(firstNumber) - Number(seccondNumber)).toString();
-          break;
-        case "*":
-          result = (Number(firstNumber) * Number(seccondNumber)).toString();
-          break;
-        case "/":
-          result = (Number(firstNumber) / Number(seccondNumber)).toString();
-          break;
-        default:
-          result = ". . .";
-      }
-      if (isNaN(result)) return;
-      setDynamicResult(result);
-    }
+    /* keeps updated the display */
+    setDisplayContent(
+      `${firstNumber} ${operation} ${
+        seccondNumber < 0 || seccondNumber === '-' ? `( ${seccondNumber} )` : seccondNumber
+      }`
+    );
+    /* keeps updated the dynamic result to be print on screen and be copy its result and be pasted on ans state when the buttons able to calculate are press */
+    setDynamicResult(operateStates(firstNumber, seccondNumber, operation));
   }, [firstNumber, seccondNumber, operation]);
 
   return (

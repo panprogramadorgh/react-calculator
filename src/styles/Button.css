@@ -6,7 +6,7 @@
   color: #000;
   background-color: #fff;
   border: none;
-  border-radius: 0.8em;
+  border-radius: 0.15em;
   font-size: 30px;
   margin: 5px;
   outline: none;
@@ -34,6 +34,6 @@ button.Button-component:hover {
   font-size: 22px;
   flex-basis: 100%;
   color: #fff;
-  background-color: rgb(67, 53, 33);
+  background-color: rgb(8, 65, 74);
   border: 0.1em solid #fff;
 }

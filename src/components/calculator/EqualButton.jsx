@@ -8,7 +8,6 @@ const OpButton = ({ children }) => {
     setSeccondNumber,
     setAns,
     setOperation,
-    setCurrentNumber,
     dynamicResult,
   } = useContext(ButtonContext);
   return (
@@ -21,7 +20,6 @@ const OpButton = ({ children }) => {
         setFirstNumber("");
         setSeccondNumber("");
         setOperation("");
-        setCurrentNumber("number1");
       }}
     >
       {children}
