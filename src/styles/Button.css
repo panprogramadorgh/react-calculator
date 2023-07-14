@@ -1,4 +1,4 @@
-.Button-component {
+.Button {
   font-family: "Poppins", sans-serif;
   font-weight: 800;
   width: 100px;
@@ -10,27 +10,29 @@
   font-size: 30px;
   margin: 5px;
   outline: none;
+  cursor: pointer;
+  user-select: none;
   transition: all 0.1s;
 }
 
-button.Button-component:hover {
+button.Button:hover {
   background-color: #d5e009;
   color: #000;
 }
 
-.Button-component.number {
+.Button.number {
   color: #fff;
   background-color: rgb(10, 26, 49);
   border: 0.1em solid #fff;
 }
 
-.Button-component.operation {
+.Button.operation {
   color: #fff;
   background-color: rgb(13, 108, 4);
   border: 0.1em solid #fff;
 }
 
-.Button-component.special {
+.Button.special {
   font-size: 22px;
   flex-basis: 100%;
   color: #fff;
